@@ -1,0 +1,30 @@
+splitter = component.proxy("B23FC4984AD04082DDEA4191C22476D2")
+storage = component.proxy("FE38B92249262A5DA58959BECC9FF03E")
+
+output_left = 0
+output_center = 1
+output_right = 2
+
+THRESHOLD = 400
+
+
+function getContentsCount(storage)
+  return storage:getInventories()[1].itemCount
+end
+
+
+function sortItem()
+  if(getContentsCount(storage) < THRESHOLD) then
+    output = output_left
+  else
+    output = output_right
+  end
+  splitter:transferItem(output)
+end
+
+event.listen(splitter)
+
+while true do
+  eventName = event.pull(1)  -- will get ItemRequest and ItemOutputted
+  sortItem()
+end

@@ -1,0 +1,13 @@
+local fluidStorage = component.proxy("4C371AB34E93F07274D4AD9DC80A5AEE")
+local flushThreshold = 200
+
+while true do
+    local fluidContent = fluidStorage.fluidContent
+    print("There is " .. fluidContent .. " in the tank")
+    
+    if (fluidContent >= flushThreshold) then
+        print("Down the hatch!")
+        fluidStorage:flush()
+    end
+    event.pull(5)
+end
